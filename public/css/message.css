@@ -1,0 +1,43 @@
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+
+    60% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#message {
+    background-color: rgba(153, 169, 185, 0.8);
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: "yellow-rabbit";
+    color: #FFF;
+    font-size: 50px;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+    animation-name: fadeInOpacity;
+    animation-timing-function: linear;
+    animation-duration: .6s;
+}
+#message button {
+    flex-basis: 100%;
+    max-width: 20%;
+    min-width: 100px;
+}
+
+#msg {
+    width: 100%;
+    position: fixed;
+    margin-top: 30px;
+    z-index: 4;
+    left: 50%;
+    transform: translateX(-50%);
+}

@@ -1,0 +1,20 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #1E344F;
+}
+
+@font-face {
+  font-family: grafitti;
+  src: url('../fonts/grafitti.tff');
+}
+
+@font-face {
+  font-family: yellow-rabbit;
+  src: url('../fonts/Yellow-Rabbit.tff');
+}

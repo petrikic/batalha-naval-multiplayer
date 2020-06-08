@@ -1,0 +1,48 @@
+.container img {
+    max-width: 300px;
+    height: auto;
+    padding-top: 60px;
+    -webkit-filter: drop-shadow(20px 0px rgb(19, 37, 59));
+    filter: drop-shadow(20px 0px rgb(19, 37, 59));
+}
+
+.title-bat {
+    font-family: grafitti;
+    font-size: 60px;
+    color: aliceblue;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+    margin: auto;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin #username {
+    margin-bottom: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.form-signin #password {
+    margin-bottom: 5px;
+    border-radius: 0px;
+}
+
+.form-signin #confirm-password {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

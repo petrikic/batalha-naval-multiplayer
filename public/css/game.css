@@ -1,0 +1,51 @@
+.root {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 0.5fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 0%;
+}
+
+.square {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+}
+
+.main {
+    display: flex;
+}
+
+.content {
+    position: relative;
+}
+
+.sea {
+    background-color: #4B6F9C
+}
+
+.hit {
+    background-color: black;
+}
+
+.miss {
+    background-color: grey;
+}
+
+.sink {
+    background-color: red;
+}

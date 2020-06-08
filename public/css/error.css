@@ -1,0 +1,43 @@
+#wrap {
+    position: relative;
+    height: 100vh;
+}
+
+  
+#wrap .error {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  
+.error {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.error-img img{
+    padding-top: 60px;
+    -webkit-filter: drop-shadow(20px 0px rgb(19, 37, 59));
+    filter: drop-shadow(20px 0px rgb(19, 37, 59));
+}
+  
+.error h2 {
+    font-family: "yellow-rabbit";
+    color: aliceblue;
+    font-size: 45px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+  
+.error p {
+    font-family: sans-serif;
+    color: aliceblue;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
