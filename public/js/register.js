@@ -29,8 +29,9 @@ const sendValues = () => {
         },
         statusCode: {
             200: () => {
-                $("#msg").append(`<div id="message" 
-                role="alert">usuario cadastrado com sucesso, estamos te redirecionando.</div>`);
+                $("#msg").append(`<div class="message" 
+                role="alert">usuario cadastrado com sucesso,
+                 estamos te redirecionando.</div>`).hide().fadeIn(600);
                 setTimeout(() => {
                     location.href = '/';
                 }, 3000);

@@ -64,6 +64,16 @@ const handleResume = (hitted, missed, sinked) => {
     });
 }
 
+const playHere = () => {
+    alert('teste playhere');
+}
+
+const alreadyInRoom = () => {
+    $("#msg").append(`<div class="message"  
+  role="alert">Parece que você já está com uma aba do jogo aberta. Deseja jogar aqui?
+  <button class="btn btn-lg btn-primary btn-block" onclick="refresh()">Sim</button></div>`).hide().fadeIn(600);
+}
+
 socket.on('hit', handleHit);
 socket.on('miss', handleMiss);
 socket.on('sink', handleSink);
