@@ -65,13 +65,20 @@ const handleResume = (hitted, missed, sinked) => {
 }
 
 const playHere = () => {
-    alert('teste playhere');
+    socket.emit('playHere');
 }
 
 const alreadyInRoom = () => {
-    $("#msg").append(`<div class="message"  
-  role="alert">Parece que você já está com uma aba do jogo aberta. Deseja jogar aqui?
-  <button class="btn btn-lg btn-primary btn-block" onclick="refresh()">Sim</button></div>`).hide().fadeIn(600);
+    let message = `Parece que você já está com uma
+             aba do jogo aberta. Deseja jogar aqui?`;
+    showMessage(message, 'Sim', playHere);
+}
+
+const connectionClosed = () => {
+    let message = `A sua conexão foi encerrada. Deseja ir para a página inicial?`;
+    showMessage(message, 'Sim', () => {
+        location.href = '/';
+    });
 }
 
 socket.on('hit', handleHit);
@@ -79,12 +86,13 @@ socket.on('miss', handleMiss);
 socket.on('sink', handleSink);
 socket.on('startGame', createBoard);
 socket.on('resumeGame', handleResume);
+socket.on('alreadyInRoom', alreadyInRoom);
+socket.on('disconnect', connectionClosed);
 
 
 socket.emit('joinGame', room);
 
 window.onbeforeunload = window.onunload = (e) => {
-    socket.emit('refresh');
     socket.disconnect();
     return;
 }

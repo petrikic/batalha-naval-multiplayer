@@ -17,6 +17,9 @@ exports.use = (io) => {
         client.on('click', (id) => {
             game.shot(room, player, id);
         });
+        client.on('playHere', () => {
+            game.playHere(room, player, client);
+        });
         client.on('disconnect', () => {
             if(room){
                 rooms.unsetTo(room, player);

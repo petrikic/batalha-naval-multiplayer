@@ -1,16 +1,17 @@
 const showMessage = (message, button, event) => {
     let divMessage = document.createElement('div');
+    let divBreak = document.createElement('div');
     let buttonMessage = document.createElement('button');
     let buttonCancel = document.createElement('button');
-    let msg;
-    divMessage.innerText = message;
+    divMessage.innerHTML = message;
     divMessage.className = 'message';
+    divBreak.className = 'break';
     buttonMessage.innerHTML = button;
     buttonMessage.className = 'btn btn-lg btn-primary';
     buttonCancel.innerHTML = 'Cancelar'
     buttonCancel.className = 'btn btn-primary';
     $('#msg').prepend(divMessage);
-    $(buttonMessage).click(() => {
+    $(buttonMessage).on('click', () => {
         event();
         $(divMessage).fadeTo(600, 0, () => {
             divMessage.remove();
@@ -21,8 +22,9 @@ const showMessage = (message, button, event) => {
             divMessage.remove();
         });
     });
-    if (button) $(divMessage).append(buttonMessage,buttonCancel);
-    else {
+    if (button) {
+        $(divMessage).append(divBreak, buttonMessage, buttonCancel);
+    } else {
         setTimeout(() => {
             $(divMessage).fadeTo(600, 0, () => {
                 divMessage.remove();

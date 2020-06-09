@@ -12,6 +12,11 @@
     justify-content: center;
 }
 
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
 .message button {
     flex-basis: 100%;
     max-width: 20%;

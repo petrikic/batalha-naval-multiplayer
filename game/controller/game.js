@@ -10,8 +10,7 @@ const join = (room, player, socket) => {
     console.log(`join at ${room}`);
     if (matchs[room]) {
         if (matchs[room][player]) {
-            matchs[room][player].socket = socket;
-            if(matchs[room].start) resumeGame(room, player);
+            socket.emit('alreadyInRoom');
             return;
         }
         matchs[room].player2 = player;
@@ -26,6 +25,13 @@ const join = (room, player, socket) => {
     }
 }
 
+const playHere = (room, player, socket) => {
+    console.log(`O jogador ${player} trocou de aba.`);
+    matchs[room][player].socket.disconnect();
+    matchs[room][player].socket = socket;
+    if (matchs[room].start)
+        resumeGame(room, player)
+}
 const startGame = (room) => {
     let player1 = matchs[room].player1;
     let player2 = matchs[room].player2;
@@ -143,3 +149,4 @@ function allDestroyed(room, player) {
 
 exports.join = join;
 exports.shot = shot;
+exports.playHere = playHere;

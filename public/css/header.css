@@ -21,6 +21,10 @@
     border-radius: 8px;
 }
 
+#navbar-items li{
+    padding-left: 30px;
+}
+
 #user-ico {
     filter: opacity(80%);
     width: 50px;

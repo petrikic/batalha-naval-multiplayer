@@ -2,10 +2,6 @@
     width: 12px;
 }
 
-#navbar-items li{
-    padding-left: 30px;
-}
-
 #content {
     position: fixed;
     padding-left: 0;
