@@ -25,14 +25,18 @@ const createBoard = () => {
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
             $('#root').append(createSquare(i, j));
+            setTimeout(() => {
+                $('#' + i + j).fadeIn(600);
+            }, 12 * i * j + 200);
         }
     }
+    setTimeout(() => {
+        $('#hide_score').fadeIn(1000);
+    }, 1200);
 }
-
 const updateScore = (score) => {
-    $('#score').val(score);
+    $('#score').text(score);
 }
-
 const handleHit = (id) => {
     $('#' + id).toggleClass('hit');
 }
@@ -51,10 +55,11 @@ const handleSink = (ship) => {
     });
 }
 
-const handleResume = (hitted, missed, sinked) => {
+const handleResume = (hitted, missed, sinked, score) => {
     createBoard();
+    updateScore(score)
     hitted.forEach(e => {
-        handleHit(e);
+        handleHit(e, score);
     });
     missed.forEach(e => {
         handleMiss(e);
@@ -81,13 +86,24 @@ const connectionClosed = () => {
     });
 }
 
+const youTurn = () => {
+    showMessage('Sua vez de jogar.');
+}
+
+const opponentTurn = () => {
+    showMessage('Vez do seu oponente jogar.');
+}
+
 socket.on('hit', handleHit);
 socket.on('miss', handleMiss);
 socket.on('sink', handleSink);
+socket.on('updateScore', updateScore);
 socket.on('startGame', createBoard);
 socket.on('resumeGame', handleResume);
 socket.on('alreadyInRoom', alreadyInRoom);
 socket.on('disconnect', connectionClosed);
+socket.on('youTurn', youTurn);
+socket.on('opponentTurn', opponentTurn);
 
 
 socket.emit('joinGame', room);

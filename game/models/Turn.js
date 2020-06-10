@@ -1,7 +1,7 @@
 function Turn(player1, player2) {
     this.player = [];
     this.player.push(player1, player2);
-    this.shift = 0;
+    this.shift = 1;
 }
 
 Turn.prototype.getMe = function () {

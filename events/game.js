@@ -15,13 +15,14 @@ exports.use = (io) => {
             }
         });
         client.on('click', (id) => {
-            game.shot(room, player, id);
+            if (game.isStarted(room))
+                game.shot(room, player, id);
         });
         client.on('playHere', () => {
             game.playHere(room, player, client);
         });
         client.on('disconnect', () => {
-            if(room){
+            if (room) {
                 rooms.unsetTo(room, player);
                 setTimeout(() => {
                     if (!io.sockets.adapter.rooms[room]) {

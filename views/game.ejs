@@ -10,12 +10,14 @@
     <script defer src="/js/bootstrap.min.js"></script>
     <script defer src="/socket.io/socket.io.js"></script>
     <script defer src="/js/game.js"></script>
+    <script defer src="/js/online.js"></script>
     <script defer src="/js/utilitaries.js"></script>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/message.css">
     <link rel="stylesheet" href="/css/game.css">
+    <link rel="stylesheet" href="/css/online-sidebar.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -54,11 +56,22 @@
             </div>
         </div>
     </nav>
-    <div class="main">
-        <div id="root" class="board"></div>
-    </div>
-    <div id="score">
-        0
+    <div id="content">
+        <div id="sidebar-content">
+            <ul id="online-list" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a>
+                        Usuários online:
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="main">
+            <div id="root" class="board"></div>
+            <div id="hide_score">
+                <div id="score">0</div>
+            </div>
+        </div>
     </div>
 </body>
 

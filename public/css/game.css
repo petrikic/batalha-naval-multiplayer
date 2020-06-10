@@ -1,37 +1,47 @@
-.root {
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
+#hide_score {
+    display: none;
 }
 
-.container {
+#score {
+    background-color: #4B6F9C;
+    border: 2px solid white;
+    font-size: 20px;
+    color: #fff;
+    width: 8vw;
+    height: 3vw;
     display: flex;
+    align-items: center;
     justify-content: center;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .board {
     display: grid;
     grid-template-columns: repeat(10, 0.5fr);
     grid-template-rows: repeat(10, 1fr);
-    width: 0%;
+    width: 40vw;
+    height: 40vw;
 }
 
 .square {
+    display: none;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
     border-left: 1px solid white;
     border-right: 1px solid white;
     cursor: pointer;
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    height: 100%;
 }
 
 .main {
+    min-width: 480px;
+    min-height: 480px;
     display: flex;
-}
-
-.content {
-    position: relative;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .sea {

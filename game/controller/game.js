@@ -41,6 +41,7 @@ const startGame = (room) => {
     matchs[room][player1].socket.broadcast.to(room).emit('startGame');
     matchs[room][player1].socket.emit('startGame');
     matchs[room].start = true;
+    changeTurn(room);
     console.log('game started!');
 }
 
@@ -48,7 +49,12 @@ const resumeGame = (room, player) => {
     matchs[room][player].socket.emit('resumeGame',
         matchs[room][player].hit,
         matchs[room][player].miss,
-        matchs[room][player].sink);
+        matchs[room][player].sink,
+        matchs[room][player].score);
+}
+
+const isStarted = (room) => {
+    return matchs[room].start;
 }
 
 const createBoard = (room, playerName) => {
@@ -93,9 +99,13 @@ const updateScore = (player) => {
     player.score += player.multi++;
 }
 
-const sendHit = (room, player, id) => {
+const sendScore = (room, player) => {
     let score = matchs[room][player].score;
-    matchs[room][player].socket.emit('hit', id, score);
+    matchs[room][player].socket.emit('updateScore', score);
+}
+
+const sendHit = (room, player, id) => {
+    matchs[room][player].socket.emit('hit', id);
     console.log(`${player} hit: ${id}`);
 }
 
@@ -117,6 +127,14 @@ const setSink = (room, player, id) => {
     matchs[room][player].sink.push(id);
 }
 
+const changeTurn = (room) => {
+    matchs[room].turn.next();
+    let me = matchs[room].turn.getMe();
+    let he = matchs[room].turn.getHe();
+    matchs[room][me].socket.emit('youTurn');
+    matchs[room][he].socket.emit('opponentTurn');
+}
+
 const shot = (room, player, id) => {
     const opponent = matchs[room].turn.getHe();
     let board = matchs[room][opponent].board;
@@ -132,14 +150,15 @@ const shot = (room, player, id) => {
         setHit(room, player, id);
         verifyShips(room, player);
         updateScore(matchs[room][player]);
+        sendScore(room, player);
         sendHit(room, player, id);
-        matchs[room].turn.next();
+        changeTurn(room);
     } else {
         setMiss(room, player, id);
         board[i][j] = 'hited';
         matchs[room][player].multi = 1;
         sendMiss(room, player, id);
-        matchs[room].turn.next();
+        changeTurn(room);
     }
 }
 
@@ -150,3 +169,4 @@ function allDestroyed(room, player) {
 exports.join = join;
 exports.shot = shot;
 exports.playHere = playHere;
+exports.isStarted = isStarted
