@@ -77,9 +77,11 @@ const alreadyInRoom = () => {
 
 const connectionClosed = () => {
     let message = `A sua conexão foi encerrada. Deseja ir para a página inicial?`;
-    showMessage(message, 'Sim', () => {
-        location.href = '/';
-    });
+    setTimeout(() => {
+        showMessage(message, 'Sim', () => {
+            location.href = '/';
+        });
+    }, 300);
 }
 
 const startGame = () => {
