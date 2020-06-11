@@ -15,7 +15,7 @@ exports.use = (io) => {
             }
         });
         client.on('click', (id) => {
-            if (game.isStarted(room))
+            if (game.existMatch(room) && game.isStarted(room))
                 game.shot(room, player, id);
         });
         client.on('playHere', () => {

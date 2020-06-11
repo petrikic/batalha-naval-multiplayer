@@ -1,7 +1,3 @@
-var socket = io('localhost:3000', {
-    transports: ['websocket'],
-    upgrade: false
-});
 let room = window.location.href.split('/')[5];
 
 const createSquare = (i, j) => {
@@ -31,7 +27,7 @@ const createBoard = () => {
         }
     }
     setTimeout(() => {
-        $('#hide_score').fadeIn(1000);
+        $('#hide-info').fadeIn(1000);
     }, 1200);
 }
 const updateScore = (score) => {
@@ -86,24 +82,52 @@ const connectionClosed = () => {
     });
 }
 
+const startGame = () => {
+    showMessage('O jogo vai começar.');
+    setTimeout(() => {
+        createBoard();
+    }, 200);
+}
+
 const youTurn = () => {
-    showMessage('Sua vez de jogar.');
+    $('#you-turn').addClass('in-turn');
+    $('#you-turn').removeClass('out-turn');
+    $('#opponent-turn').addClass('out-turn');
+    $('#opponent-turn').removeClass('in-turn');
 }
 
 const opponentTurn = () => {
-    showMessage('Vez do seu oponente jogar.');
+    $('#opponent-turn').addClass('in-turn');
+    $('#opponent-turn').removeClass('out-turn');
+    $('#you-turn').addClass('out-turn');
+    $('#you-turn').removeClass('in-turn');
+}
+
+const waitPlayer = () => {
+    showMessage('Aguardando o seu oponente.');
+}
+
+const handleWin = () => {
+    showMessage('Você venceu!');
+}
+
+const handleLose = () => {
+    showMessage('Você perdeu!');
 }
 
 socket.on('hit', handleHit);
 socket.on('miss', handleMiss);
 socket.on('sink', handleSink);
 socket.on('updateScore', updateScore);
-socket.on('startGame', createBoard);
+socket.on('startGame', startGame);
 socket.on('resumeGame', handleResume);
 socket.on('alreadyInRoom', alreadyInRoom);
 socket.on('disconnect', connectionClosed);
 socket.on('youTurn', youTurn);
 socket.on('opponentTurn', opponentTurn);
+socket.on('waitPlayer', waitPlayer);
+socket.on('win', handleWin);
+socket.on('lose', handleLose);
 
 
 socket.emit('joinGame', room);

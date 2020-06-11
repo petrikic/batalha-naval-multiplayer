@@ -523,11 +523,6 @@ configstore@^3.0.0:
     write-file-atomic "^2.0.0"
     xdg-basedir "^3.0.0"
 
-connect-flash@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/connect-flash/-/connect-flash-0.1.1.tgz#d8630f26d95a7f851f9956b1e8cc6732f3b6aa30"
-  integrity sha1-2GMPJtlaf4UfmVax6MxnMvO2qjA=
-
 console-control-strings@^1.0.0, console-control-strings@^1.1.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
@@ -947,11 +942,6 @@ execa@^1.0.0:
     p-finally "^1.0.0"
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
-
-express-ejs-layouts@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/express-ejs-layouts/-/express-ejs-layouts-2.5.0.tgz#b33f285fa7d5d2b8a6b7ab6569730547156e4e79"
-  integrity sha512-27Kza3FR8UqvQsq1ewaxC2IwpgrQttYDEFN5s8D74Fv1VPdzsXFWsiKhPMlNauG+DrgMAmh7FhQl5hKHffd+wQ==
 
 express-session@^1.17.1:
   version "1.17.1"

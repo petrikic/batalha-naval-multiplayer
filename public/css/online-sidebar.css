@@ -1,8 +1,8 @@
-#content a img {
+#wrapper a img {
     width: 12px;
 }
 
-#content {
+#wrapper {
     position: fixed;
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -10,31 +10,26 @@
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-
-#content.toggled {
+#wrapper.toggled {
     padding-left: 250px;
 }
-
-#sidebar-content {
+#sidebar {
     z-index: 1000;
-    position: fixed;
+    position: fixed; 
     left: 250px;
     width: 0;
     height: 100%;
     margin-left: -250px;
-    overflow-y: auto;
+    overflow-y:auto;
     background: #4B6F9C;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-
-#content.toggled #sidebar-content {
+#wrapper.toggled #sidebar {
     width: 250px;
 }
-
-/* Sidebar Styles */
 
 .sidebar-nav {
     position: absolute;
@@ -62,8 +57,6 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-
-
 .sidebar-nav>.sidebar-brand {
     height: 65px;
     font-size: 18px;
@@ -77,22 +70,4 @@
 .sidebar-nav>.sidebar-brand a:hover {
     color: #fff;
     background: none;
-}
-
-@media(min-width:768px) {
-    #content {
-        padding-left: 250px;
-    }
-
-    #content.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-content {
-        width: 250px;
-    }
-
-    #content.toggled #sidebar-content {
-        width: 0;
-    }
 }

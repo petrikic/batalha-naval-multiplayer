@@ -1,20 +1,57 @@
-#hide_score {
+@keyframes turn {
+    25% {
+        background: #B4D250;
+        transform: rotate(-1deg);
+    }
+
+    75% {
+        background: #B4D250;
+        transform: rotate(1deg);
+    }
+}
+
+#hide-info {
     display: none;
+}
+
+.out-turn {
+    background-color: #677484;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.in-turn {
+    animation: turn .5s linear 0s infinite normal none;
+    background-color: #87A828;
 }
 
 #score {
     background-color: #4B6F9C;
+}
+
+.display {
     border: 2px solid white;
     font-size: 20px;
     color: #fff;
-    width: 8vw;
+    min-width: 8vw;
     height: 3vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px;
     border-radius: 8px;
-    margin-top: 10px;
+    margin-bottom: 10px;
     margin-left: 10px;
+}
+
+.label {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
 }
 
 .board {

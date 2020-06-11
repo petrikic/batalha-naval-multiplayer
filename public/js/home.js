@@ -1,5 +1,3 @@
-var socket = io('localhost:3000');
-
 const list = (value) => {
     $("#list-rooms").append(`<li><a href="/r/public/${value}" id="${value}">${value}</a></li>`);
 }
@@ -26,3 +24,7 @@ const createRoom = () => {
 socket.on('room', (room) => {
     window.location.href = '/r/public/' + room;
 });
+
+const toggle = () => {
+    $('#sidebar-content').toggle(600);
+}

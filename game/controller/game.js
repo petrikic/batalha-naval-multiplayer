@@ -22,6 +22,7 @@ const join = (room, player, socket) => {
         matchs[room] = Match();
         matchs[room].player1 = player;
         matchs[room][player] = CreatePlayer(socket);
+        socket.emit('waitPlayer');
     }
 }
 
@@ -40,9 +41,11 @@ const startGame = (room) => {
     createBoard(room, player2);
     matchs[room][player1].socket.broadcast.to(room).emit('startGame');
     matchs[room][player1].socket.emit('startGame');
-    matchs[room].start = true;
-    changeTurn(room);
     console.log('game started!');
+    setTimeout(() => {
+        matchs[room].start = true;
+        changeTurn(room);
+    }, 1000);
 }
 
 const resumeGame = (room, player) => {
@@ -51,10 +54,32 @@ const resumeGame = (room, player) => {
         matchs[room][player].miss,
         matchs[room][player].sink,
         matchs[room][player].score);
+    if (matchs[room].turn.getMe() == player) {
+        matchs[room][player].socket.emit('youTurn');
+    } else {
+        matchs[room][player].socket.emit('opponentTurn');
+    }
+}
+
+const finishGame = (room) => {
+    let me = matchs[room].turn.getMe();
+    let he = matchs[room].turn.getHe();
+    matchs[room][me].socket.emit('win');
+    matchs[room][me].socket.disconnect();
+    matchs[room][he].socket.emit('lose');
+    matchs[room][he].socket.disconnect();
+    matchs[room].start = false;
+    setTimeout(() => {
+        delete matchs[room];
+    }, 3000);
 }
 
 const isStarted = (room) => {
     return matchs[room].start;
+}
+
+const existMatch = (room) => {
+    return matchs[room];
 }
 
 const createBoard = (room, playerName) => {
@@ -92,6 +117,10 @@ const verifyShips = (room, player) => {
             ships.splice(i, 1);
             sink(room, player, ship);
         }
+    }
+    if (allDestroyed(room, player)) {
+        changeTurn(room);
+        finishGame(room);
     }
 }
 
@@ -131,8 +160,10 @@ const changeTurn = (room) => {
     matchs[room].turn.next();
     let me = matchs[room].turn.getMe();
     let he = matchs[room].turn.getHe();
-    matchs[room][me].socket.emit('youTurn');
-    matchs[room][he].socket.emit('opponentTurn');
+    if (isStarted(room)) {
+        matchs[room][me].socket.emit('youTurn');
+        matchs[room][he].socket.emit('opponentTurn');
+    }
 }
 
 const shot = (room, player, id) => {
@@ -162,11 +193,12 @@ const shot = (room, player, id) => {
     }
 }
 
-function allDestroyed(room, player) {
+const allDestroyed = (room, player) => {
     return (matchs[room][player].ships.length == 0);
 }
 
 exports.join = join;
 exports.shot = shot;
 exports.playHere = playHere;
-exports.isStarted = isStarted
+exports.existMatch = existMatch;
+exports.isStarted = isStarted;

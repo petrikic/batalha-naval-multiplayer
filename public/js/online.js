@@ -5,6 +5,10 @@ const listOnline = (user) => {
         </li>`);
 }
 
+const toggle_sidebar = () => {
+    $("#wrapper").toggleClass("toggled");
+}
+
 socket.on('listOnline', list => {
     list.forEach(element => {
         listOnline(element)
@@ -18,3 +22,5 @@ socket.on('newUser', user => {
 socket.on('dropUser', user => {
     $('#' + user).closest('li').remove();
 });
+
+toggle_sidebar();
