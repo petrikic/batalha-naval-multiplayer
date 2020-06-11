@@ -23,4 +23,6 @@ socket.on('dropUser', user => {
     $('#' + user).closest('li').remove();
 });
 
-toggle_sidebar();
+if (window.matchMedia("(min-width: 768px)").matches) {
+    toggle_sidebar();
+}

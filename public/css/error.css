@@ -1,25 +1,19 @@
 #wrap {
-    position: relative;
-    height: 100vh;
-}
-
-  
-#wrap .error {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
   }
   
 .error {
-    max-width: 600px;
+    max-width: 100%;
     width: 100%;
     text-align: center;
 }
 
 .error-img img{
+    max-width: 80%;
+    width: 600px;
     padding-top: 60px;
     -webkit-filter: drop-shadow(20px 0px rgb(19, 37, 59));
     filter: drop-shadow(20px 0px rgb(19, 37, 59));

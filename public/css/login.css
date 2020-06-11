@@ -10,7 +10,7 @@
     animation: glow 1s ease-in-out infinite alternate;
 }
 
-.container img{
+.container img {
     max-width: 300px;
     height: auto;
     padding-top: 60px;
@@ -18,7 +18,7 @@
     filter: drop-shadow(20px 0px rgb(19, 37, 59));
 }
 
-.title-bat{
+.title-bat {
     font-family: grafitti;
     font-size: 60px;
     color: aliceblue;
@@ -30,7 +30,7 @@
     padding: 5px;
     margin: auto;
 }
-  
+
 .form-signin .form-control {
     position: relative;
     box-sizing: border-box;
@@ -48,7 +48,7 @@
     border-bottom-right-radius: 0px;
 }
 
-  .form-signin #password {
+.form-signin #password {
     margin-bottom: 20px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
