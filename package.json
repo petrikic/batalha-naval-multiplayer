@@ -1,4 +1,8 @@
 {
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
