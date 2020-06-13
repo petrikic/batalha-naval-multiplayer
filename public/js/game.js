@@ -1,3 +1,5 @@
+var socket = io();
+
 let room = window.location.href.split('/')[5];
 
 const createSquare = (i, j) => {

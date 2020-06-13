@@ -1,12 +1,12 @@
-module.exports = (socket) => {
-    return {
-        socket: socket,
-        score: 0,
-        multi: 1,
-        board: '',
-        ships: '',
-        hit: [],
-        miss: [],
-        sink: []
-    };
+function Player(socket) {
+    this.socket = socket;
+    this.score = 0;
+    this.multi = 1;
+    this.board = undefined;
+    this.ships = undefined;
+    this.hit = [];
+    this.miss = [];
+    this.sink = [];
 }
+
+module.exports = Player;

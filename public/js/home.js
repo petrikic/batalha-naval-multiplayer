@@ -1,3 +1,5 @@
+var socket = io();
+
 const list = (value) => {
     $("#list-rooms").append(`<li><a href="/r/public/${value}" id="${value}">${value}</a></li>`);
 }

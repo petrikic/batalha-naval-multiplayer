@@ -26,7 +26,7 @@ exports.use = (io) => {
                 rooms.unsetTo(room, player);
                 setTimeout(() => {
                     if (!io.sockets.adapter.rooms[room]) {
-                        console.log(`rm room: ${room}`);
+                        console.log(`Fechando a sala: ${room}`);
                         rooms.remove(room);
                         client.broadcast.emit('closeRoom', room);
                     }

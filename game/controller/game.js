@@ -1,37 +1,36 @@
 const Match = require('../models/Match');
 const Turn = require('../models/Turn');
-const CreatePlayer = require('../models/Player');
+const Player = require('../models/Player');
 const ships = require('../libs/ships');
 const board = require('../libs/board');
 
 const matchs = {};
 
-const join = (room, player, socket) => {
-    console.log(`join at ${room}`);
+const join = (room, playerName, socket) => {
     if (matchs[room]) {
-        if (matchs[room][player]) {
+        if (matchs[room][playerName]) {
             socket.emit('alreadyInRoom');
             return;
         }
-        matchs[room].player2 = player;
-        matchs[room][player] = CreatePlayer(socket);
+        matchs[room].player2 = playerName;
+        matchs[room][playerName] = new Player(socket);
         setTimeout(() => {
             startGame(room);
-        }, 100);
+        }, 200);
     } else {
-        matchs[room] = Match();
-        matchs[room].player1 = player;
-        matchs[room][player] = CreatePlayer(socket);
+        matchs[room] = new Match();
+        matchs[room].player1 = playerName;
+        matchs[room][playerName] = new Player(socket);
         socket.emit('waitPlayer');
     }
 }
 
-const playHere = (room, player, socket) => {
-    console.log(`O jogador ${player} trocou de aba.`);
-    matchs[room][player].socket.disconnect();
-    matchs[room][player].socket = socket;
+const playHere = (room, playerName, socket) => {
+    console.log(`O jogador ${playerName} mudou de aba.`);
+    matchs[room][playerName].socket.disconnect();
+    matchs[room][playerName].socket = socket;
     if (matchs[room].start)
-        resumeGame(room, player)
+        resumeGame(room, playerName)
 }
 const startGame = (room) => {
     let player1 = matchs[room].player1;
@@ -48,26 +47,26 @@ const startGame = (room) => {
     }, 1000);
 }
 
-const resumeGame = (room, player) => {
-    matchs[room][player].socket.emit('resumeGame',
-        matchs[room][player].hit,
-        matchs[room][player].miss,
-        matchs[room][player].sink,
-        matchs[room][player].score);
-    if (matchs[room].turn.getMe() == player) {
-        matchs[room][player].socket.emit('youTurn');
+const resumeGame = (room, playerName) => {
+    matchs[room][playerName].socket.emit('resumeGame',
+        matchs[room][playerName].hit,
+        matchs[room][playerName].miss,
+        matchs[room][playerName].sink,
+        matchs[room][playerName].score);
+    if (matchs[room].turn.getMe() == playerName) {
+        matchs[room][playerName].socket.emit('youTurn');
     } else {
-        matchs[room][player].socket.emit('opponentTurn');
+        matchs[room][playerName].socket.emit('opponentTurn');
     }
 }
 
 const finishGame = (room) => {
     let me = matchs[room].turn.getMe();
     let he = matchs[room].turn.getHe();
-    matchs[room][me].socket.emit('win');
-    matchs[room][me].socket.disconnect();
-    matchs[room][he].socket.emit('lose');
+    matchs[room][he].socket.emit('win');
     matchs[room][he].socket.disconnect();
+    matchs[room][me].socket.emit('lose');
+    matchs[room][me].socket.disconnect();
     matchs[room].start = false;
     setTimeout(() => {
         delete matchs[room];
@@ -89,71 +88,64 @@ const createBoard = (room, playerName) => {
 }
 
 const destroyed = (ship) => {
-    isDestroyed = true;
-    for (let i = 0; i < ship.length; i++) {
-        if (ship[i].status == 'ok') {
-            isDestroyed = false;
-        }
-    }
-    return isDestroyed;
+    return ship.filter(part => part.status == 'ok')
+        .length == 0;
 }
 
-const sink = (room, player, ship) => {
+const sink = (room, playerName, ship) => {
     let shipId = [];
     ship.forEach(part => {
-        setSink(room, player, part.position);
+        setSink(room, playerName, part.position);
         shipId.push(part.position);
     });
-    matchs[room][player].socket.emit('sink', shipId);
+    matchs[room][playerName].socket.emit('sink', shipId);
 }
 
-const verifyShips = (room, player) => {
+const verifyShips = (room, playerName) => {
     const opponent = matchs[room].turn.getHe();
     const ships = matchs[room][opponent].ships;
     for (let i = 0; i < ships.length; i++) {
         let ship = ships[i];
         if (destroyed(ship)) {
-            console.log('ship destroyed');
             ships.splice(i, 1);
-            sink(room, player, ship);
+            sink(room, playerName, ship);
         }
     }
-    if (allDestroyed(room, player)) {
-        changeTurn(room);
+    if (allDestroyed(room, playerName)) {
         finishGame(room);
     }
 }
 
-const updateScore = (player) => {
-    player.score += player.multi++;
+const updateScore = (playerName) => {
+    playerName.score += playerName.multi++;
 }
 
-const sendScore = (room, player) => {
-    let score = matchs[room][player].score;
-    matchs[room][player].socket.emit('updateScore', score);
+const sendScore = (room, playerName) => {
+    let score = matchs[room][playerName].score;
+    matchs[room][playerName].socket.emit('updateScore', score);
 }
 
-const sendHit = (room, player, id) => {
-    matchs[room][player].socket.emit('hit', id);
-    console.log(`${player} hit: ${id}`);
+const sendHit = (room, playerName, id) => {
+    matchs[room][playerName].socket.emit('hit', id);
+    console.log(`${playerName} hit: ${id}`);
 }
 
-const sendMiss = (room, player, id) => {
-    matchs[room][player].socket.emit('miss', id);
-    console.log(`${player} miss: ${id}`);
+const sendMiss = (room, playerName, id) => {
+    matchs[room][playerName].socket.emit('miss', id);
+    console.log(`${playerName} miss: ${id}`);
 }
 
-const setHit = (room, player, id) => {
-    matchs[room][player].hit.push(id);
+const setHit = (room, playerName, id) => {
+    matchs[room][playerName].hit.push(id);
 }
 
-const setMiss = (room, player, id) => {
-    matchs[room][player].miss.push(id);
+const setMiss = (room, playerName, id) => {
+    matchs[room][playerName].miss.push(id);
 }
 
-const setSink = (room, player, id) => {
-    matchs[room][player].hit.pop(id);
-    matchs[room][player].sink.push(id);
+const setSink = (room, playerName, id) => {
+    matchs[room][playerName].hit.pop(id);
+    matchs[room][playerName].sink.push(id);
 }
 
 const changeTurn = (room) => {
@@ -166,35 +158,36 @@ const changeTurn = (room) => {
     }
 }
 
-const shot = (room, player, id) => {
+const shot = (room, playerName, id) => {
     const opponent = matchs[room].turn.getHe();
     let board = matchs[room][opponent].board;
     let i = (id / 10) | 0; // pick a right value
     let j = id % 10; // pick a left value
-    if (matchs[room].turn.getMe() != player) {
-        matchs[room][player].socket.emit('NotIsYouTurn');
+    if (matchs[room].turn.getMe() != playerName) {
+        matchs[room][playerName].socket.emit('NotIsYouTurn');
     } else if (board[i][j] == 'hited') {
-        matchs[room][player].socket.emit('AlreadyHit');
+        matchs[room][playerName].socket.emit('AlreadyHit');
     } else if (board[i][j] !== undefined) {
         board[i][j].status = 'destroyed';
         board[i][j] = 'hited';
-        setHit(room, player, id);
-        verifyShips(room, player);
-        updateScore(matchs[room][player]);
-        sendScore(room, player);
-        sendHit(room, player, id);
+        setHit(room, playerName, id);
+        verifyShips(room, playerName);
+        updateScore(matchs[room][playerName]);
+        sendScore(room, playerName);
+        sendHit(room, playerName, id);
         changeTurn(room);
     } else {
-        setMiss(room, player, id);
+        setMiss(room, playerName, id);
         board[i][j] = 'hited';
-        matchs[room][player].multi = 1;
-        sendMiss(room, player, id);
+        matchs[room][playerName].multi = 1;
+        sendMiss(room, playerName, id);
         changeTurn(room);
     }
 }
 
-const allDestroyed = (room, player) => {
-    return (matchs[room][player].ships.length == 0);
+const allDestroyed = (room, playerName) => {
+    return (matchs[room][playerName]
+        .ships.length == 0);
 }
 
 exports.join = join;

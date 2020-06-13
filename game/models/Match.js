@@ -1,8 +1,7 @@
-module.exports = () => {
-    return {
-        player1: '',
-        player2: '',
-        start: false,
-        turn: ''
-    };
+function Match() {
+    this.player1 = undefined;
+    this.player2 = undefined;
+    this.turn = undefined;
+    this.start = false;
 }
+module.exports = Match;
