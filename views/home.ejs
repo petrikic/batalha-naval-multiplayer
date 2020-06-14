@@ -9,9 +9,6 @@
   <script defer src="/js/jquery-3.5.1.min.js"></script>
   <script defer src="/js/bootstrap.min.js"></script>
   <script defer src="/socket.io/socket.io.js"></script>
-  <script defer src="/js/home.js"></script>
-  <script defer src="/js/online.js"></script>
-  <script defer src="/js/utilitaries.js"></script>
 
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/header.css">
@@ -23,18 +20,31 @@
 
 <body>
   <div id="msg" class="container"></div>
-  <div id="msg" class="container"></div>
   <%- include('partials/navbar') %>
   <div id="wrapper">
     <%- include('partials/sidebar') %>
     <div class="content">
-      <button type="button" class="btn btn-primary" onclick="toggle_sidebar()">
-        <'toggle</button> <button type="button" class="btn btn-primary" onclick="createRoom()">Criar sala
+      <div id="flx">
+        <input type="checkbox" id="hamburger-menu">
+
+        <label for="hamburger-menu">
+          <div id="tgg" onclick="toggle_sidebar()">
+            <span class="hamburger"></span>
+          </div>
+        </label>
+
+        <div id="tt">
+          <button class="btn btn-primary" onclick="createRoom()">Criar sala
+        </div>
+      </div>
       </button>
       <ul id="list-rooms"></ul>
     </div>
   </div>
 
+  <script defer src="/js/home.js"></script>
+  <script defer src="/js/online.js"></script>
+  <script defer src="/js/utilitaries.js"></script>
 </body>
 
 </html>

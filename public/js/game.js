@@ -36,7 +36,12 @@ const updateScore = (score) => {
     $('#score').text(score);
 }
 const handleHit = (id) => {
+    let circle = document.createElement('div');
+    circle.innerText = '';
+    circle.className = 'circle';
+
     $('#' + id).toggleClass('hit');
+    $('#' + id).append(circle);
 }
 
 const handleMiss = (id) => {
@@ -73,7 +78,7 @@ const playHere = () => {
 
 const alreadyInRoom = () => {
     let message = `Parece que você já está com uma
-             aba do jogo aberta. Deseja jogar aqui?`;
+            aba do jogo aberta. Deseja jogar aqui?`;
     showMessage(message, 'Sim', playHere);
 }
 
@@ -86,7 +91,7 @@ const connectionClosed = () => {
     }, 300);
 }
 
-const startGame = () => {
+const startGame = (room) => {
     showMessage('O jogo vai começar.');
     setTimeout(() => {
         createBoard();

@@ -1,17 +1,37 @@
+
+function handleUserClick(e) {
+    let msg = `Deseja convidar o player ${e.id} para uma partida?`;
+    showMessage(msg, 'Sim', () => {
+        socket.emit('invite', e.id);
+    });
+}
+
+const handleInvite = (players) => {
+    let msg = `${players.player1} está te chamando para uma partida!`;
+    showMessage(msg, 'Aceitar', () => {
+        socket.emit('newGame', players);
+    });
+}
+
 const listOnline = (user) => {
     $("#online-list").append(`
-        <li>
-            <a id="${user}" href="/users/${user}"><img src="/img/online-ico.png""> ${user}</a>
-        </li>`);
+        <li
+            class="user-online"
+            id="${user}"
+            onclick="handleUserClick(this);"
+        >
+            ${user}
+        </li>
+    `);
 }
 
 const toggle_sidebar = () => {
     $("#wrapper").toggleClass("toggled");
 }
 
-socket.on('listOnline', list => {
-    list.forEach(element => {
-        listOnline(element)
+socket.on('listOnline', users => {
+    users.forEach(user => {
+        listOnline(user)
     });
 });
 
@@ -23,6 +43,4 @@ socket.on('dropUser', user => {
     $('#' + user).closest('li').remove();
 });
 
-if (window.matchMedia("(min-width: 768px)").matches) {
-    toggle_sidebar();
-}
+socket.on('invited', handleInvite)

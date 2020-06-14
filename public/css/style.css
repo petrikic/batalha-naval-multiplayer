@@ -8,7 +8,10 @@ body {
   padding: 0;
   background: #1E344F;
 }
-
+ul {
+  padding: 0;
+  list-style: none;
+}
 @font-face {
   font-family: grafitti;
   src: url('../fonts/grafitti.tff');

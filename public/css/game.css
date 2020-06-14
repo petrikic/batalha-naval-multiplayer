@@ -1,24 +1,3 @@
-@keyframes water-shot {
-    from {
-        background-position: 0px;
-    }
-
-    to {
-        background-position: -1274px;
-    }
-}
-
-@-webkit-keyframes water-shot {
-    from {
-        background-position: 0px;
-    }
-
-    to {
-        background-position: -1274px;
-    }
-}
-
-
 @keyframes turn {
     25% {
         background: #B4D250;
@@ -82,19 +61,24 @@
     grid-template-rows: repeat(10, 1fr);
     min-width: 340px;
     min-height: 340px;
-    width: 40vw;
-    height: 40vw;
+    width: 85vh;
+    height: 85vh;
+    max-width: 50vw;
+    max-height: 50vw;
 }
 
 .square {
-    display: none;
+    display: flex;
     border: 1px solid #fff;
     cursor: pointer;
     width: 100%;
     height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .main {
+    size: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -107,9 +91,11 @@
     background-position: center;
 }
 
-.hit {
-    background-image: none;
+.circle {
     background-color: black;
+    border-radius: 50%;
+    width: 40%;
+    height: 40%;
 }
 
 .miss {
