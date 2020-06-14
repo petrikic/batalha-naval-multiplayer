@@ -1,24 +1,3 @@
-@keyframes water-shot {
-    from {
-        background-position: 0px;
-    }
-
-    to {
-        background-position: -1274px;
-    }
-}
-
-@-webkit-keyframes water-shot {
-    from {
-        background-position: 0px;
-    }
-
-    to {
-        background-position: -1274px;
-    }
-}
-
-
 @keyframes turn {
     25% {
         background: #B4D250;
@@ -82,8 +61,10 @@
     grid-template-rows: repeat(10, 1fr);
     min-width: 340px;
     min-height: 340px;
-    width: 40vw;
-    height: 40vw;
+    width: 85vh;
+    height: 85vh;
+    max-width: 50vw;
+    max-height: 50vw;
 }
 
 .square {
@@ -95,6 +76,7 @@
 }
 
 .main {
+    size: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

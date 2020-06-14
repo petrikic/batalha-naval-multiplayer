@@ -17,22 +17,14 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/message.css">
-    <link rel="stylesheet" href="/css/game.css">
+    <link rel="stylesheet" href="/css/ranking.css">
 </head>
 
 <body>
     <div id="msg" class="container"></div>
     <%- include('partials/navbar') %>
     <div id="wrapper">
-        <div class="main">
-            <div id="root" class="board"></div>
-            <div id="hide-info">
-                <div class="label">Score</div>
-                <div id="score" class="display">0</div>
-                <div id="you-turn" class="display out-turn">Seu turno</div>
-                <div id="opponent-turn" class="display out-turn">Turno do oponente</div>
-            </div>
-        </div>
+        <%- include('partials/ranking') %> 
     </div>
 </body>
 

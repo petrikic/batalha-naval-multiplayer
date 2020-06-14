@@ -1,16 +1,17 @@
 exports.use = (io) => {
     const online = require('../controller/online');
-    
-    io.on("connection", client => {
+
+    io.on("connection", async client => {
         const username = client.handshake.session.user;
         client.join(username);
+
         if (!online.check(username)) {
             client.broadcast.emit('newUser', username);
-            console.log(`User online: ${username}`);
         }
         online.set(username);
+        let users = online.list().filter(user => user !== username);
 
-        client.emit('listOnline', online.list());
+        client.emit('listOnline', users);
 
         client.on("disconnect", () => {
             online.remove(username);

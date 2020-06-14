@@ -1,10 +1,7 @@
 exports.use = (io) => {
     const rooms = require('../controller/room');
-    
+
     io.on("connection", client => {
-        let room;
-        console.log(`socket conectado: ${client.id}`);
-        
         client.emit('listRooms', rooms.list);
 
         client.on('createRoom', () => {
