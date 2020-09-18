@@ -29,6 +29,7 @@ const createBoard = () => {
         }
     }
     setTimeout(() => {
+        $('.square').css('display', 'flex');
         $('#hide-info').fadeIn(1000);
     }, 1200);
 }
@@ -82,16 +83,7 @@ const alreadyInRoom = () => {
     showMessage(message, 'Sim', playHere);
 }
 
-const connectionClosed = () => {
-    let message = `A sua conexão foi encerrada. Deseja ir para a página inicial?`;
-    setTimeout(() => {
-        showMessage(message, 'Sim', () => {
-            location.href = '/';
-        });
-    }, 300);
-}
-
-const startGame = (room) => {
+const startGame = () => {
     showMessage('O jogo vai começar.');
     setTimeout(() => {
         createBoard();
@@ -117,11 +109,21 @@ const waitPlayer = () => {
 }
 
 const handleWin = () => {
-    showMessage('Você venceu!');
+    let message = `Você venceu!. Deseja ir para a página inicial?`;
+    setTimeout(() => {
+        showMessage(message, 'Sim', () => {
+            location.href = '/';
+        });
+    }, 300);
 }
 
 const handleLose = () => {
-    showMessage('Você perdeu!');
+    let message = `Você perdeu!. Deseja ir para a página inicial?`;
+    setTimeout(() => {
+        showMessage(message, 'Sim', () => {
+            location.href = '/';
+        });
+    }, 300);
 }
 
 socket.on('hit', handleHit);
@@ -131,7 +133,6 @@ socket.on('updateScore', updateScore);
 socket.on('startGame', startGame);
 socket.on('resumeGame', handleResume);
 socket.on('alreadyInRoom', alreadyInRoom);
-socket.on('disconnect', connectionClosed);
 socket.on('youTurn', youTurn);
 socket.on('opponentTurn', opponentTurn);
 socket.on('waitPlayer', waitPlayer);

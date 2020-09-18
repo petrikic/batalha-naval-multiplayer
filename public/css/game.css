@@ -68,7 +68,7 @@
 }
 
 .square {
-    display: flex;
+    display: none;
     border: 1px solid #fff;
     cursor: pointer;
     width: 100%;
@@ -96,6 +96,11 @@
     border-radius: 50%;
     width: 40%;
     height: 40%;
+}
+
+.hit {
+    filter: grayscale(100%) brightness(80%);;
+    background-color: grey;
 }
 
 .miss {

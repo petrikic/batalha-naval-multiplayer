@@ -16,5 +16,12 @@ module.exports = () => {
             ships.push(createShip[i]());
         }
     }
+
+    ships.forEach(ship => {
+        ship.destroyed = 0;
+        ship.forEach(part => {
+            part.ship = ship;
+        });
+    });
     return ships;
 }

@@ -4,11 +4,11 @@ function Turn(player1, player2) {
     this.shift = 1;
 }
 
-Turn.prototype.getMe = function () {
+Turn.prototype.getCurrent = function () {
     return this.player[this.shift];
 }
 
-Turn.prototype.getHe = function () {
+Turn.prototype.getNext = function () {
     return this.player[(this.shift + 1) % 2];
 }
 
