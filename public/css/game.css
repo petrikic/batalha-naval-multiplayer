@@ -87,28 +87,35 @@
 
 .sea {
     background-image: url('/img/sea-bg.jpg');
-    background-size: 220%;
+    background-size: 100%;
     background-position: center;
 }
 
-.circle {
-    background-color: black;
-    border-radius: 50%;
-    width: 40%;
-    height: 40%;
+.marker {
+    background-image: url('/img/marker.png');
+    background-size: 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
 }
 
 .hit {
-    filter: grayscale(100%) brightness(80%);;
-    background-color: grey;
+    background-color: gray;
 }
 
 .miss {
-    filter: grayscale(100%) brightness(80%);;
-    background-color: grey;
+    filter: grayscale(100%) brightness(80%);
 }
 
 .sink {
     background-image: none;
     background-color: red;
+}
+
+.rotate {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }

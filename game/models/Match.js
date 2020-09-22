@@ -109,13 +109,16 @@ class Match {
     }
 
     __sink(playerName, ship) {
-        const shipId = [];
+        const sinked = [];
         ship.forEach(part => {
-            this[playerName].hit.pop(part.position);
-            this[playerName].sink.push(part.position);
-            shipId.push(part.position);
+            const pt = {};
+            pt.position = part.position;
+            pt.type = part.type;
+            pt.orientation = part.orientation;
+            sinked.push(pt);
+            this[playerName].sink.push(pt);
         });
-        this[playerName].socket.emit('sink', shipId);
+        this[playerName].socket.emit('sink', sinked);
     }
 
     __destroyed(ship) {
@@ -150,7 +153,6 @@ class Match {
             this[playerName].socket.emit('AlreadyHit');
         } else if (board[i][j] !== undefined) {
             board[i][j].ship.destroyed++;
-            board[i][j].status = 'destroyed';
             board[i][j] = 'hited';
             this.__verifyShips(playerName);
             this.__setHit(this[playerName], id);
