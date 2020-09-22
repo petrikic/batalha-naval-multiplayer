@@ -1,19 +1,24 @@
 module.exports = () => {
-    const portaAvioes = require('../models/PortaAvioes');
-    const navioTanque = require('../models/NavioTanque');
-    const contraTorpedos = require('../models/ContraTorpedos');
-    const submarino = require('../models/Submarino');
-    const createShip = [];
+    const Ship = require('../models/Ship');
+    const types = [];
     const ships = [];
 
-    createShip.push(portaAvioes);
-    createShip.push(navioTanque);
-    createShip.push(contraTorpedos);
-    createShip.push(submarino);
+    const setType = (type, len) => {
+        const shipType = {}
+        shipType.type = type;
+        shipType.len = len;
+        types.push(shipType);
+    }
 
-    for (let i = 0; i < createShip.length; i++) {
+    setType('porta-avioes', 5);
+    setType('navio-tanque', 4);
+    setType('contra-torpedos', 3);
+    setType('submarino', 2);
+
+    for (let i = 0; i < types.length; i++) {
         for (let j = 0; j < i + 1; j++) {
-            ships.push(createShip[i]());
+            const ship = new Ship(types[i].type, types[i].len);
+            ships.push(ship);
         }
     }
 

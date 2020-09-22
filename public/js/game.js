@@ -37,26 +37,33 @@ const updateScore = (score) => {
     $('#score').text(score);
 }
 const handleHit = (id) => {
-    let circle = document.createElement('div');
-    circle.innerText = '';
-    circle.className = 'circle';
+    let marker = document.createElement('div');
+    marker.innerText = '';
+    marker.className = 'marker';
 
     $('#' + id).toggleClass('hit');
-    $('#' + id).append(circle);
+    $('#' + id).append(marker);
 }
 
 const handleMiss = (id) => {
     $('#' + id).toggleClass('miss');
 }
 
-const sink = (id) => {
-    $('#' + id).toggleClass('sink');
+const sink = (part) => {
+    const path = `/img/vessels/${part.type}`;
+    const marker = $('#' + part.position + ' > .marker');
+    marker.css('background-image', 'url(' + path + '.png)');
+    if(part.orientation) {
+        marker.toggleClass('rotate');
+    }
 }
 
 const handleSink = (ship) => {
-    ship.forEach(id => {
-        sink(id);
-    });
+    setTimeout(() => {
+        ship.forEach(part => {
+            sink(part);
+        });
+    }, 50)
 }
 
 const handleResume = (hitted, missed, sinked, score) => {
